@@ -96,7 +96,7 @@ def summarize_expenses(expense_file_path, budget):
             amount_by_category[key] += expense.amount
         else:
             amount_by_category[key] = expense.amount
-
+# This section prints a summary of expenses by category, iterating through the amount_by_category dictionary and printing the category name and the total amount spent in that category.
     print("Expenses By Category :")
     for key, amount in amount_by_category.items():
         print(f"  {key}: ${amount:.2f}")
@@ -117,6 +117,7 @@ def summarize_expenses(expense_file_path, budget):
 
 def list_expenses(expense_file_path):
     print(f" Listing All Recorded Expenses:")
+    # This line initializes an empty list called expenses.
     expenses: list[Expense] = []
 
     # Display the list of expenses with details
