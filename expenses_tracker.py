@@ -1,5 +1,4 @@
 import datetime
-from expenses import Expense
 import calendar
 
 # The constructor method (__init__) is responsible for initializing the attributes of an expense object when it is created.
@@ -42,7 +41,6 @@ def get_user_expense():
         " Misc",
     ]
 
-    while True:
         print("Select a category: ")
         for i, category_name in enumerate(expense_categories):
             print(f"  {i + 1}. {category_name}")
@@ -67,8 +65,6 @@ def save_expense_to_file(expense: Expense, expense_file_path):
     with open(expense_file_path, "a") as f:
         f.write(
             f"{expense.date},{expense.name},{expense.amount},{expense.category}\n")
-
-
 def summarize_expenses(expense_file_path, budget):
     print(f" Summarizing User Expense")
     expenses: list[Expense] = []
