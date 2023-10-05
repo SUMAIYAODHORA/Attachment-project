@@ -30,34 +30,32 @@ def get_user_expense():
     except ValueError:
         print("Invalid date format. Please use DD/MM/YYYY.")
         return get_user_expense()
+# dictionary expense_categories is defined to map category numbers (as strings) to their corresponding category names.
+    expense_categories = {
+        "1": "Food",
+        "2": "Home",
+        "3": "Work",
+        "4": "Fun",
+        "5": "Transport",
+        "6": "Medical",
+        "7": "Misc",
+    }
+    print("Select a category: ")
+    for key, category_name in expense_categories.items():
+        print(f"{key}. {category_name}")
 
-    expense_categories = [
-        " Food",
-        " Home",
-        " Work",
-        " Fun",
-        " Transport",
-        " Medical",
-        " Misc",
-    ]
+    selected_index = input("Enter a category number: ")
+# If a valid category is selected, a new Expense object is created with the provided name, category, amount, and date. This object is returned as the result of the get_user_expense() function.
+    if selected_index in expense_categories:
+        selected_category = expense_categories[selected_index]
 
-        print("Select a category: ")
-        for i, category_name in enumerate(expense_categories):
-            print(f"  {i + 1}. {category_name}")
-
-        value_range = f"[1 - {len(expense_categories)}]"
-        selected_index = int(
-            input(f"Enter a category number {value_range}: ")) - 1
-
-        if selected_index in range(len(expense_categories)):
-            selected_category = expense_categories[selected_index]
-
-            new_expense = Expense(
-                name=expense_name, category=selected_category, amount=expense_amount, date=expense_date
-            )
-            return new_expense
-        else:
-            print("Invalid category. Please try again!")
+        new_expense = Expense(
+            name=expense_name, category=selected_category, amount=expense_amount, date=expense_date
+        )
+        return new_expense
+    else:
+        print("Invalid category number. Please try again!")
+        return get_user_expense()
 
 
 def save_expense_to_file(expense: Expense, expense_file_path):
@@ -65,8 +63,11 @@ def save_expense_to_file(expense: Expense, expense_file_path):
     with open(expense_file_path, "a") as f:
         f.write(
             f"{expense.date},{expense.name},{expense.amount},{expense.category}\n")
+
+
 def summarize_expenses(expense_file_path, budget):
     print(f" Summarizing User Expense")
+    # Here, an empty list called expenses is created. This list will be used to store Expense objects after reading them from the file.
     expenses: list[Expense] = []
 
     # Display the list of expenses with details
