@@ -2,6 +2,8 @@ import datetime
 from expenses import Expense
 import calendar
 
+# The constructor method (__init__) is responsible for initializing the attributes of an expense object when it is created.
+
 
 class Expense:
     def __init__(self, name, category, amount, date) -> None:
@@ -9,48 +11,10 @@ class Expense:
         self.category = category
         self.amount = amount
         self.date = date
+# The __repr__ method is used to define how an expense object should be represented as a string when it is printed or converted to a string.
 
     def __repr__(self):
         return f"<Expense: {self.name}, {self.category}, ${self.amount:.2f}, Date: {self.date}>"
-
-
-def main():
-    print(f" Running Expense Tracker!")
-    expense_file_path = "expenses.csv"
-
-    # Get the user's budget as input
-    budget = float(input("Enter your budget for the month: "))
-
-    while True:
-        print("\nMenu:")
-        print("1. Add Expense")
-        print("2. Delete Expense")
-        print("3. List Expenses")
-        print("4. Summarize Expenses")
-        print("5. Exit")
-
-        choice = input("Enter your choice (1/2/3/4/5): ")
-
-        if choice == "1":
-            # Get user input for expense.
-            expense = get_user_expense()
-
-            # Write their expense to a file.
-            save_expense_to_file(expense, expense_file_path)
-        elif choice == "2":
-            # Delete an expense
-            delete_expense(expense_file_path)
-        elif choice == "3":
-            # List all recorded expenses
-            list_expenses(expense_file_path)
-        elif choice == "4":
-            # Summarize expenses
-            summarize_expenses(expense_file_path, budget)
-        elif choice == "5":
-            print("Exiting Expense Tracker.")
-            break
-        else:
-            print("Invalid choice. Please try again!")
 
 
 def get_user_expense():
@@ -242,6 +206,38 @@ def delete_expense(expense_file_path):
 
 def green(text):
     return f"\033[92m{text}\033[0m"
+
+
+def main():
+    print("Running Expense Tracker!")
+    expense_file_path = "expenses.csv"
+
+    budget = float(input("Enter your budget for the month: "))
+    choice = None
+
+    while choice != "5":
+        print("\nMenu:")
+        print("1. Add Expense")
+        print("2. Delete Expense")
+        print("3. List Expenses")
+        print("4. Summarize Expenses")
+        print("5. Exit")
+
+        choice = input("Enter your choice (1/2/3/4/5): ")
+
+        if choice == "1":
+            expense = get_user_expense()
+            save_expense_to_file(expense, expense_file_path)
+        elif choice == "2":
+            delete_expense(expense_file_path)
+        elif choice == "3":
+            list_expenses(expense_file_path)
+        elif choice == "4":
+            summarize_expenses(expense_file_path, budget)
+        elif choice == "5":
+            print("Exiting Expense Tracker.")
+        else:
+            print("Invalid choice. Please try again!")
 
 
 if __name__ == "__main__":
